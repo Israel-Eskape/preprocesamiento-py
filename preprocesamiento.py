@@ -18,4 +18,19 @@ promedio = round(promedio, 0)
 
 replaceAge = df["Age"].replace(np.nan,promedio)
 replaceAge = replaceAge.head(50)
-print(replaceAge)
+
+df = pd.get_dummies(df, columns=["Sex"], drop_first=True) #Cambia el valor de las categorias por variables numéricas 
+#Agrupar datos
+# 1 = 0 a 5 años
+# 2 = 6 a 12 años
+# 3 = 13 a 18 años 
+# 4 = 19 a 35 años
+# 5 = 36 a 60 años
+# 6 = 60 a 100 años
+# #
+
+bins = [0,5,12,18,35,60,100]
+namesAge = ["1","2","3","4","5","6"]
+df["Age"] = pd.cut(df["Age"],bins, labels=namesAge)
+
+print(df.head(10))
