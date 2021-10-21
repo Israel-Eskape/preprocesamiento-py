@@ -1,4 +1,5 @@
 from os import replace
+from matplotlib import pyplot as plt
 import pandas as pd 
 import numpy as np
 
@@ -16,8 +17,8 @@ removeRowName = df.dropna(subset=["Cabin"], axis = 0)
 promedio = df["Age"].mean()
 promedio = round(promedio, 0)
 
-replaceAge = df["Age"].replace(np.nan,promedio)
-replaceAge = replaceAge.head(50)
+df["Age"] = df["Age"].replace(np.nan,promedio)
+
 
 df = pd.get_dummies(df, columns=["Sex"], drop_first=True) #Cambia el valor de las categorias por variables numéricas 
 #Agrupar datos
@@ -34,3 +35,9 @@ namesAge = ["1","2","3","4","5","6"]
 df["Age"] = pd.cut(df["Age"],bins, labels=namesAge)
 
 print(df.head(10))
+#plt.ion()
+numberDataGraphic = 7
+plt.plot(df['PassengerId'].head(numberDataGraphic),df['Age'].head(numberDataGraphic))
+plt.show()
+
+
