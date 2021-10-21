@@ -34,10 +34,18 @@ bins = [0,5,12,18,35,60,100]
 namesAge = ["1","2","3","4","5","6"]
 df["Age"] = pd.cut(df["Age"],bins, labels=namesAge)
 
-print(df.head(10))
+#print(df.head(10))
 #plt.ion()
 numberDataGraphic = 7
-plt.plot(df['PassengerId'].head(numberDataGraphic),df['Age'].head(numberDataGraphic))
+#plt.plot(df['PassengerId'].head(numberDataGraphic),df['Age'].head(numberDataGraphic))
+#plt.scatter(df['PassengerId'].head(numberDataGraphic),df['Age'].head(numberDataGraphic)) #scatter grafica de puntos
+#df.plot(kind = "scatter",x = "PassengerId", y = "Age")    
+#plt.show()
+
+(unique, counts) = np.unique(df['Age'],return_counts=True)
+plt.bar(unique,counts)
+plt.scatter(unique,counts)
+plt.plot(unique,counts)
 plt.show()
 
 
