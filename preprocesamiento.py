@@ -43,9 +43,30 @@ numberDataGraphic = 7
 #plt.show()
 
 (unique, counts) = np.unique(df['Age'],return_counts=True)
+
+xlabel = 'Rango de edades'
+ylabel = 'cantidad de personas'
+
+plt.subplot(331)
 plt.bar(unique,counts)
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.title("Gráfica de barras")
+
+plt.subplot(333)
 plt.scatter(unique,counts)
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.title("Gráfica de puntos")
+
+plt.subplot(337)
 plt.plot(unique,counts)
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.title("Gráfica lineal")
+
+plt.subplot(339)
+plt.pie(unique,labels = counts, autopct="%0.1f %%", labeldistance=2,shadow=True, explode=[0.2,0.2,0.2,0.2,0.2,0.3])
+plt.title('Gráfica circular')
+
 plt.show()
-
-
