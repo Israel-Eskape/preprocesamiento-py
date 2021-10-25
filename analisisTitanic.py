@@ -12,4 +12,13 @@ tamData = train.shape
 #infoData = train.info()
 variableData = train.describe()
 variableCatData = train.describe(include=['O'])
-print(variableCatData)
+#print(variableCatData)
+
+#variable target
+survived = train.groupby(['Survived']).count()['PassengerId']
+#target vs sex
+survivedSex = train.groupby(['Survived','Sex']).count()['PassengerId']
+(survivedSex.unstack(level=0).plot.bar())
+plt.show()
+
+print (survivedSex)
