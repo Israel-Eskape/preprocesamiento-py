@@ -36,7 +36,7 @@ classEmbarked = train.groupby(['Pclass','Embarked']).count()['PassengerId']
 
 procesData = train[['Survived', 'Sex', 'Age', 'Pclass']].head(3)
 #procesDataInfo = train[['Survived', 'Sex', 'Age', 'Pclass']].info() #estudiar variables nulos
-train[['Survived', 'Sex', 'Age', 'Pclass']].info()
+#train[['Survived', 'Sex', 'Age', 'Pclass']].info()
 datosNulosEdad = (train[train['Age'].isna()].groupby(['Sex', 'Pclass']).count()['PassengerId'].unstack(level = 0))
 
 datosAge = (train[train['Age'].isna()].groupby(['SibSp','Parch']).count()['PassengerId'].unstack(level=0))
@@ -46,7 +46,25 @@ train['Age'] = train['Age'].fillna(mediaAge)
 #train[['Survived', 'Sex', 'Age', 'Pclass']].info()
 #Pasar Sex de tipo object a int para poder hacer la manipulación
 train['Sex'] = train['Sex'].map({'female':1,'male':0}).astype(int)
-train[['Survived', 'Sex', 'Age', 'Pclass']].info()
+#train[['Survived', 'Sex', 'Age', 'Pclass']].info()
 procesData = train[['Survived', 'Sex', 'Age', 'Pclass']].head(3)
 
-print(procesData)
+#Crear nuevas variables 
+train['flagSolo'] = np.where(
+        (train['SibSp'] == 0) & (train['Parch']==0),
+        1,
+        0
+)
+groupedFlag = train.groupby(['Survived','flagSolo']).count()['PassengerId']
+(groupedFlag.unstack(level=0).plot.bar())
+
+procesData = train[['Survived', 'Sex', 'Age', 'Pclass']].head(3)
+
+#variable dependiente 
+trainY = train['Survived']
+#preprocesamiento de variables independientes
+
+trainX = train[['Sex','Age','Pclass','flagSolo']]
+
+print(trainX.shape,trainY.shape)
+#plt.show()
