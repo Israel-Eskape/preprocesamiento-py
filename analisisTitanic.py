@@ -43,7 +43,10 @@ datosAge = (train[train['Age'].isna()].groupby(['SibSp','Parch']).count()['Passe
 #calcular la media de la edad
 mediaAge = (train['Age'].median())
 train['Age'] = train['Age'].fillna(mediaAge)
+#train[['Survived', 'Sex', 'Age', 'Pclass']].info()
+#Pasar Sex de tipo object a int para poder hacer la manipulación
+train['Sex'] = train['Sex'].map({'female':1,'male':0}).astype(int)
 train[['Survived', 'Sex', 'Age', 'Pclass']].info()
+procesData = train[['Survived', 'Sex', 'Age', 'Pclass']].head(3)
 
-
-print(mediaAge)
+print(procesData)
